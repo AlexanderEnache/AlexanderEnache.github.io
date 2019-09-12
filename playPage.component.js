@@ -39,6 +39,8 @@ var Rise;
 var Run;
 var Hyp = 8;
 
+var start = true;
+
 var angleFactor;
 
 var circRad  = (sizeReference/91);
@@ -127,7 +129,10 @@ function Animate(){
 	
 	draw();
 	
-	Start();
+	if(start){
+		Start();
+		start = false;
+	}
 	
 	Ball();
 	
@@ -138,11 +143,11 @@ function Animate(){
 function Start(){
 	
 	if(Serv){
-		
-		if(scoreR == Service.getUntil()-1){
+		console.log(scoreL + " " + scoreR);
+		if(scoreR == Service.getUntil()){
 			// console.log("One wins");
 			End();
-		}else if(scoreL == Service.getUntil()-1){
+		}else if(scoreL == Service.getUntil()){
 			// console.log("One wins");
 			End();
 		}
@@ -197,21 +202,23 @@ function Ball(){
 		
 	}
 	
-	if(circX <= -1*circRad){
+	if(circX <= 0){  //-1*circRad
 		
 		serveDirR = false;
 		Serv = true;
-		Start();
 		
-		scoreLSelector.innerHTML = ++scoreR;
+		scoreR++;
+		scoreLSelector.innerHTML = scoreR;
+		Start();
 		
 	}if(circX >= canvas.width){
 		
 		serveDirR = true;
 		Serv = true;
-		Start();
 		
-		scoreRSelector.innerHTML = ++scoreL;
+		scoreL++;
+		scoreRSelector.innerHTML = scoreL;
+		Start();
 		
 	}
 	
